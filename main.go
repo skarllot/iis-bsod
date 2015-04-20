@@ -41,7 +41,7 @@ func main() {
 	defer resp.Body.Close()
 
 	server := resp.Header.Get("Server")
-	if !strings.Contains(server, "Microsoft") {
+	if len(server) > 0 && !strings.Contains(server, "Microsoft") {
 		fmt.Println("[*] Not IIS")
 		return
 	}
