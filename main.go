@@ -17,12 +17,17 @@ const (
 )
 
 func main() {
-	var host = flag.String("host", "http://example.com", "HTTP address to request")
-	var bsod = flag.Bool("bsod", false, "Set to force BSOD")
+	var addr = flag.String("addr", "", "HTTP address from file to request")
+	var bsod = flag.Bool("bsod", false, "Defines whether should force BSOD")
 	flag.Parse()
 
+	if len(*addr) == 0 {
+		flag.Usage()
+		return
+	}
+
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", *host, nil)
+	req, err := http.NewRequest("GET", *addr, nil)
 	if err != nil {
 		fmt.Println("Request error:", err)
 		return
